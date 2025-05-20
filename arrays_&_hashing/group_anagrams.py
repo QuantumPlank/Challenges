@@ -44,8 +44,8 @@ class Solution:
 
     def bruteForce(self, strs: list[str]) -> list[list[str]]:
         """
-        Time: O(n^2*m)
-        Space: O(n*m)
+        Time: O(n^2 * m)
+        Space: O(n * m)
         """
         groups = []
 
