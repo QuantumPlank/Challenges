@@ -88,3 +88,4 @@ class Solution:
                 result.append(num)
                 if (len(result) == k):
                     return result
+        return result
