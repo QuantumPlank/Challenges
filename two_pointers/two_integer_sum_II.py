@@ -34,16 +34,57 @@ class Solution:
         Time: O(n^2)
         Space: O(1)
         """
-        idx1 = 0
-        idx2 = 1
-        while numbers[idx1] + numbers[idx2] != target:
-            idx2 += 1
-            if idx2 >= len(numbers):
-                idx1 += 1
-                idx2 = idx1 + 1
-            elif numbers[idx1] + numbers[idx2] > target:
-                idx1 += 1
-                idx2 = idx1 + 1
-        return [idx1 + 1, idx2 + 1]
+        for i in range(len(numbers)):
+            for j in range(i + 1, len(numbers)):
+                if numbers[i] + numbers[j] == target:
+                    return [i + 1, j + 1]
+        return []
+    
+    def binarySearch(self, numbers: List[int], target: int) -> List[int]:
+        """
+        Time: O(n * log n)
+        Space: O(1)
+        """
+        for i in range(len(numbers)):
+            left = i + 1
+            right = len(numbers) - 1
+            searched = target - numbers[i]
+            while left <= right:
+                middle = left + (right - left) // 2
+                if numbers[middle] == searched:
+                    return [i + 1, middle + 1]
+                elif numbers[middle] < searched:
+                    left = middle + 1
+                else:
+                    right = middle - 1
+        return []
+    
+    def hashMap(self, numbers: List[int], target: int) -> List[int]:
+        """
+        Time: O(n)
+        Space: O(n)
+        """
+        seen = {}
+        for i in range(len(numbers)):
+            searched = target - numbers[i]
+            if seen.get(searched, 0):
+                return [seen[searched], i + 1]
+            seen[numbers[i]] = i + 1
+        return []
 
-    ##### INCOMPLETE
+    def twoPointers(self, numbers: List[int], target: int) -> List[int]:
+        """
+        Time: O(n)
+        Space: O(1)
+        """
+        left = 0
+        right = len(numbers) - 1
+        while left < right:
+            currentSum = numbers[left] + numbers[right]
+            if currentSum > target:
+                right -= 1
+            elif currentSum < target:
+                left
+            else:
+                return[left + 1, right + 1]
+        return []
