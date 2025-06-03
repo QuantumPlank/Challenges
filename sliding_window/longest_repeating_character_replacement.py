@@ -36,37 +36,22 @@ class Solution:
         Time: O(n)
         Space: O(m)
         """
-        charMap = {}
-        left = 0
         result = 0
+        
+        count = {}
+        left = 0
+        maxFrequency = 0
+
         for right in range(len(s)):
             character = s[right]
-            if character in charMap:
-                left = max(charMap[character]+1, left)
-            charMap[character] = right
+            count[character] = count.get(character, 0) + 1
+            maxFrequency = max(maxFrequency, count[character])
+
+            while (right - left + 1) - maxFrequency > k:
+                character = s[left]
+                count[character] -= 1
+                left += 1
             result = max(result, right - left + 1)
+
         return result
 
-    def slidingWindow(self, s: str, k: int) -> int:
-        """
-        Time: O(n)
-        Space: O(m)
-        """
-        left = 0
-        result = 0
-        right = 0
-        while right < len(s):
-            run_k = k
-            character = s[left]
-            right = left + 1
-            run_result = 1
-            incidence = -1
-            while run_k >= 0 and right < len(s):
-                if s[right] == character:
-                    run_result += 1
-                else:
-                    run_k -= 1
-                    if incidence == -1:
-                        incidence = right
-            result = max(result, run_result)
-        return result
